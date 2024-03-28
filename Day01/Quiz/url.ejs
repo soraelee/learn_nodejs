@@ -1,0 +1,11 @@
+<ul>
+    <% for (let i = 0 ; i < url.length ; i++){ %>
+        <li>
+            <a href="<%= Object.values(url[i])%>">
+                <%=Object.keys(url[i])%>
+            </a>
+        </li>
+    <%}%>
+</ul>
+
+

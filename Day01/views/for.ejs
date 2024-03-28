@@ -1,0 +1,12 @@
+<%const arr =[10, 20, 30]
+for(let i=0 ; i < arr.length ; i++){%>
+    <!-- <%%> 안에 <%%>을 사용할 수 없음-->
+    <%=arr[i]%><br><%
+}
+%>
+<ul>
+    <% arr.forEach((data, index) => {%>
+        <li><%= index%>.<%=data%></li>
+    <%})%>
+</ul>
+
