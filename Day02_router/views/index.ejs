@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>index</h1>
+    <h3>회원 정보</h3>
+
+    <% console.log(member)%>
+    <!-- console에 member에 대한 내용이 나오도록 함-->
+    <% for (let i=0 ; i < member.length ; i++){%>
+        id : <%= member[i].id %><br>
+        name :
+            
+                <%= member[i].name %><br>
+           
+        addr : <%= member[i].addr %><hr>
+    <% } %>
+    <hr>
+    <% member.forEach(data => {%> 
+        id : <%= data.id %><br>
+        name : <a href="/info?uId=<%= data.id%>"> <!--누를 경우 app으로 넘어감-->
+            <%= data.name %><br>
+        </a> 
+        addr : <%= data.addr %><hr><%})%>
+
+
+</body>
+</html>
