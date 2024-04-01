@@ -1,0 +1,41 @@
+<h3> 상품 목록 확인 </h3>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>goods_id</th><th>title</th><th>price</th><th>number</th><th>total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% list.forEach((data) =>{%>
+            <tr>
+                <td>
+                    <%= data.goods_id%>
+                </td>
+                <td>
+                    <%= data.title%>
+                </td>
+                <td>
+                    <%= data.price%>
+                </td>
+                <td>
+                    <%= data.number%> 
+                </td>
+                <td>
+                    <%= data.total%> 
+                    
+                </td>
+            </tr>
+       <% })%>
+       <tr>
+            <td colspan="5" align="right">
+                <b>total price : <%= num%>                 
+                </b>
+            </td>
+       </tr>
+    </tbody>
+</table>
+
+
+<br>
+<a href="/cookie/cart">목록 이동</a>
