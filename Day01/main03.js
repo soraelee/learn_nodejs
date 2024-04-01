@@ -34,4 +34,15 @@ app.get("/for", (req, res) => {
     res.render("for")
 })
 
+app.get("/if", (req, res) => {
+    const num = 100;
+    if(num > 100) {
+        console.log("100보다 크다")
+    }else if(num > 80){
+        console.log("80보다 크다")
+    }else
+        console.log("그 외의 값")
+})
+res.render("")
+
 app.listen(3600, ()=> {console.log("main03 구동")})
