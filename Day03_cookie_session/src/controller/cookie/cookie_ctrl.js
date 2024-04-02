@@ -31,7 +31,14 @@ const makeCookie = (req, res) => {
 const ser = require("../../service/cookie/cookie_service")
 
 const cart = (req, res) => {
-    res.render("cookie/cart", {list : ser.cart()})
+    if (req.session.username){
+        return res.render("cookie/cart", {list : ser.cart()})
+    }
+    const msg = `<script>
+    alert("로그인 먼저 하세요");
+    location.href="/session/login";
+    </script>`;
+    res.send(msg)
 }
 
 const save = (req, res) => {
@@ -42,7 +49,7 @@ const save = (req, res) => {
     //사용자로부터 쿠키값을 얻어와서 사용
     if(cart_list === undefined) {
         // cart_list = {}//상품에 대한 상세 내용들을 전달
-        cart_list = []
+        cart_list = []//많은 값을 받기 위해 배열로 받음
     }
 
     cart_list = ser.save(cart_list, goods_id)

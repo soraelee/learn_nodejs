@@ -13,9 +13,7 @@ const save = (cart_list, id) => {
     for (let i = 0 ; i < db.length; i++){
         if(db[i].goods_id == id){
             // cart_list = db[i]
-            console.log("cart_list : ", cart_list)
             if (cart_list.length == 0){
-                console.log("ccccccccccccccccccccccccccccccccccccc")
                 cart_list.push(db[i])
                 cart_list[0]['number'] = 1
                 cart_list[0]['total'] = db[i].price
@@ -25,7 +23,6 @@ const save = (cart_list, id) => {
                 for (let j = 0; j < cart_list.length ; j++){
                     
                     if (cart_list[j].goods_id == id){
-                        console.log("bbbbbbbbbbbbbbbbbbbbbbbbb")
                         cart_list[j]['number'] += 1
                         cart_list[j]['total'] *= cart_list[j].number
                         bool = false;
@@ -33,7 +30,6 @@ const save = (cart_list, id) => {
                     }
                 }
                     if (bool){ //false이면 실행 x
-                        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                         cart_list.push(db[i])
                         cart_list[cart_list.length -1]['number'] = 1
                         cart_list[cart_list.length -1]['total'] = cart_list[cart_list.length -1].price
@@ -41,15 +37,9 @@ const save = (cart_list, id) => {
                 }
 
             }
-
-
-
-
             break;
         }
     }
-
-    console.log("data.id", cart_list)
     return cart_list
 }
 
