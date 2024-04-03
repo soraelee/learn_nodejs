@@ -30,5 +30,9 @@ const loginChk = (req, res) => {
 const success = (req, res) => {
     res.render("login/success", {nick : req.session.nick})
 }
+const logout = (req, res) => {
+    req.session.distroy(()=> console.log("모든 세션을 만료합니다"));
+    res.redirect("/")
+}
 
-module.exports = {login, loginChk, success}
+module.exports = {login, loginChk, success, logout}
