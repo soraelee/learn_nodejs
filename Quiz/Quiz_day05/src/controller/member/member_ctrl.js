@@ -18,8 +18,9 @@ const login_check = async (req, res) => {
 
     res.send(msg)
 }
-const logout = () => {
-
+const logout = (req, res) => {
+    req.session.destroy();
+    res.send(service.getMessage("로그아웃 합니다", "/"))
 }
 
-module.exports = {login, login_check}
+module.exports = {login, login_check, logout}

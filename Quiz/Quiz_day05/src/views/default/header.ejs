@@ -1,18 +1,14 @@
 
-    <script>
-        onload = () => {
-            console.log("sessionValue ", sessionValue)
-            if (sessionValue.uId){
-                let login = document.getElementById("login")
-                login.innerHTML = "로그아웃"
-            }
-        }
-    </script>
+<font size="4"><a href="/">HOME</a></font>
 
-    <font size="4"><a href="/">HOME</a></font>
-    <font size="4"><a href="/member/login" id="login">로그인</a></font>
-    <hr>
+<% if (sessionValue.uId) {%>
+    <font size="4"><a href="/member/logout">로그아웃</a></font>
+
+<%}else{%>
+    <font size="4"><a href="/member/login">로그인</a></font>
+
+<%}%>
+<hr>
     
-</body>
-</html>
+
 

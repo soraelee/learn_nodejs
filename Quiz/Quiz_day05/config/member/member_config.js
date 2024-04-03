@@ -1,7 +1,7 @@
 const dbConfig =  {
-    user: "java",
+    user: "c##sorae",
     password : "1234",
-    connectString : "localhost:1521/xe"
+    connectString : "localhost:1521/orcl"
 }
 const sessionConfig = {
     secret : "암호화 키",

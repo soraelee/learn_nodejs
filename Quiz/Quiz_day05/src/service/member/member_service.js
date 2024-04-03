@@ -44,4 +44,4 @@ const loginChk = async (uid, upwd) => {
 }
 
 
-module.exports = {getAllMember, loginChk}
+module.exports = {getAllMember, loginChk, getMessage}
