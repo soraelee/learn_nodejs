@@ -5,5 +5,7 @@ const router = express.Router();
 
 router.get("/login", ctrl.login)
 router.get("/login_check", ctrl.login_check)
+router.get("/list", ctrl.list)
+router.get("/info", ctrl.info)
 
 module.exports = router;

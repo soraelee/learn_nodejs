@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>아이디</td><td>이름</td><td>주소</td>
+            </tr>
+        </thead>
+        <tbody>
+            <% memberList.forEach((data) => {%>
+                <tr>
+                    <td><%= data.id %></td>
+                    <td><a href="/member/info?uId=<%= data.id%>">
+                        <%= data.name %>
+                    </a></td>
+                    <td><%= data.addr %></td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+    
+</body>
+</html>
