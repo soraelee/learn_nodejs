@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start" : "npx supervisor app01.js"
+    "start" : "npx supervisor app.js"
   },
   "dependencies": {
 
