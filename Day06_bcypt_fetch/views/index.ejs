@@ -1,0 +1,132 @@
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+    // let members = [
+    //     {id : "aaa", pwd : "aaa", name : "홍길동a", addr : "a산골짜기"},
+    //     {id : "bbb", pwd : "bbb", name : "홍길동b", addr : "산골짜기"},
+    //     {id : "ccc", pwd : "ccc", name : "홍길동c", addr : "c산골짜기"}
+    // ]   
+    let content;
+    window.onload = () => {
+        content = document.getElementById("content")
+        const getM = document.getElementById("getMembers")
+        getM.addEventListener("click", getMembers)
+        const regView = document.getElementById("regView")
+        regView.addEventListener("click", registerView)
+    }
+    const register = () => {
+        //jquery를 사용한 구현
+        const arr = $("#form").serializeArray()
+        console.log("arr : ", arr)
+        let data = {};
+        arr.forEach( d => data[d.name] = d.value)
+        console.log("data : ", data)
+        fetch("/register", {
+            method:"post", 
+            headers:{"Content-Type":"application/json"}, 
+            body : JSON.stringify(data)//json 문자열로 변환하여 전송
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log(result)
+            if(result == 1) {
+                alert("회원가입 성공!");
+                getMembers();
+            }
+        })
+    }
+    const registerView = () => {
+        let msg = `
+        <form id="form">
+            <input type="text" name="id" id="id" placeholder="input id"><br>
+            <input type="text" name="pwd" id="pwd" placeholder="input pwd"><br>
+            <input type="text" name="name" id="name" placeholder="input name"><br>
+            <input type="text" name="addr" id="addr" placeholder="input addr"><br>
+            <input type="button" id="btn" onclick="register()" value="저장"><br>
+        </form>
+        `
+        content.innerHTML = msg ; 
+    }
+    const modify_form = async(id) => {
+        registerView();
+        $("#btn").click(modify)
+        $("#btn").val("수정완료")
+        const res = await fetch("/search/"+id, {method:"get"})
+        const data = await res.json();
+        console.log("data : ", data)
+        $("#id").val(data.id)
+        $("#pwd").val(data.pwd)
+        $("#name").val(data.name)
+        $("#addr").val(data.addr)
+    }
+    const modify = () => {
+        const arr = $("#form").serializeArray()
+        console.log("arr : ", arr)
+        let data = {};
+        arr.forEach( d => data[d.name] = d.value)
+        fetch("modify", {
+            method: "put", headers:{"Content-Type":"application/json"},
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(result => {alert("수정 성공"); info(data.id);})
+    }
+    const deleteM = async (id) => {
+        const res = await fetch("/delete", {
+            method : "delete", 
+            headers : {"Content-Type":"application/json"},
+            body:JSON.stringify({id : id})
+        })
+        const result = await res.json();
+        if(result == 1){
+            alert("삭제 성공")
+            getMembers();
+        }
+    }
+    const info = (id) => {
+        console.log("id : ", id)
+        fetch("/search/"+id, {method:"get"})
+        //get 방식은 body를 사용하여 넘길 수 없음
+        .then(res => res.json())
+        .then(data => {
+            console.log("data :     ", data)
+            content.innerHTML = `id : ${data.id}<br>
+            pwd:${data.pwd}<br>
+            name:${data.name}<br>
+            addr:${data.addr}<hr>
+            <span style=cursor:pointer; onclick="getMembers()">
+                목록으로 이동</span>
+                &nbsp; / &nbsp;
+            <span style=cursor:pointer; onclick="modify_form('${data.id}')">
+                수정</span>
+                &nbsp; / &nbsp;
+            <span style=cursor:pointer; onclick="deleteM('${data.id}')">
+                삭제</span>`
+        })
+    }
+    const getMembers = () => {
+        fetch("/get_members")
+        .then(res => res.json())
+        .then(members => {
+            let msg = "<table border='1'>"
+                msg += "<tr><th>아이디</th><th>이름</th><th>주소</th></tr>"
+                members.forEach(mem => {
+                    msg += "<tr>";
+                    msg += `<td>${mem.id}</td>
+                            <td style="cursor:pointer;" onclick="info('${mem.id}')">
+                                ${mem.name}</td>
+                            <td>${mem.addr}</td>`
+                    msg +=  "</tr>"
+                    
+                })
+                msg += "</table>"
+                content.innerHTML = msg;
+            })
+            
+    }
+</script>
+
+
+<div id="content"></div>
+<hr>
+<button type="button" id="getMembers">목록보기</button>
+<button type="button" id="regView">회원가입</button>
