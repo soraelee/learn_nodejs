@@ -2,6 +2,7 @@ const oracledb = require("oracledb")
 const dbConfig = require("../../../config/database/db_config")
 
 const service = require("../../service/member/member_service")
+const bcrypt = require("bcrypt")
 
 oracledb.autoCommit = true
 //데이터를 추가 삭제할 경우 알아서 commit 해주세요

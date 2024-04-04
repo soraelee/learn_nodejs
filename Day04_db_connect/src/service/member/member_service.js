@@ -4,8 +4,13 @@ const getList = async () => {
     console.log("service : ", result)
     return result.rows; // 컬럼에 대한 설명 없이 데이터만 전달
 }
+const bcrypt = require("bcrypt")
 const insert = async (body) => {
+    body.pwd = bcrypt.hashSync(body.pwd, 10)
+    
+    console.log("service body :", body)
     const result = await memberDAO.insert(body);
+
     if (result == 0){
         msg = "문제 발생"
         url = "/member/register_form"
