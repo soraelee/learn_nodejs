@@ -1,11 +1,13 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const session = require("express-session")
+const cookieParser = require("cookie-parser")
 const config = require("./config/member/member_config")
 
 const app = express();
 app.use(session(config.sessionConfig))
 app.use(bodyParser.urlencoded());
+app.use(cookieParser());
 
 const router = require("./src/router/router")(app)
 

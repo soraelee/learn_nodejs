@@ -1,5 +1,6 @@
 const memberDAO = require("../../database/member/member_dao")
 
+const bcrypt = require("bcrypt");
 const getAllMember = async () => {
     const result = await memberDAO.getAllMember();
 
@@ -21,7 +22,7 @@ const loginChk = async (uid, upwd) => {
     let msg="", url=""
     
     for (let i = 0; i < memList.length ; i++) {
-        if (memList[i].ID === uid && memList[i].PWD === upwd){
+        if (memList[i].ID === uid && memList[i].PWD === upwd ){
             msg = memList[i].NAME + "님 환영합니다!"
             url = "/"
 
@@ -42,6 +43,36 @@ const loginChk = async (uid, upwd) => {
         url = "/member/login"
         return getMessage(msg, url);
 }
+const insert = (value) => {
+    let result = memberDAO.insert(value)
+    let msg = "", url = "";
 
+    if(result === 0){
+        msg="이미 존재하는 ID 입니다"
+        url="/member/register_form"
+    }else {
+        msg="회원가입이 완료되었습니다"
+        url="/"
+    }
 
-module.exports = {getAllMember, loginChk, getMessage}
+    return getMessage(msg, url) 
+}
+const memberInfo = async (uId) => {
+    const member = await memberDAO.searchMember(uId)
+    return member.rows
+}
+const modifyMember = async (value) => {
+    const result = await memberDAO.modifyMember(value)
+    let msg="", url=""
+    if (result === 0) {
+        msg = "문제 발생"
+        url = `/member/modify_form/${value.id}`
+    }else {
+        msg = "수정이 완료되었습니다."
+        url = `/member/info/${value.id}`
+    }
+
+    return getMessage(msg, url);
+}
+
+module.exports = {getAllMember, loginChk, getMessage, insert, memberInfo, modifyMember}

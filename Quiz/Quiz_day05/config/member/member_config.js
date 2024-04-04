@@ -1,7 +1,7 @@
 const dbConfig =  {
-    user: "c##sorae",
+    user: "java",
     password : "1234",
-    connectString : "localhost:1521/orcl"
+    connectString : "localhost:1521/xe"
 }
 const sessionConfig = {
     secret : "암호화 키",
@@ -10,5 +10,8 @@ const sessionConfig = {
     saveUninitialized : true, //내용이 수정될 때마다 저장하겠다
     // cookie :{maxAge : 5000} // 세션이 5초간 유지하도록 설정함
 }
+const cookieConfig = {
+    httpOnly : true,  //웹통신 할 때 적용하겠다
+}
 
-module.exports = {dbConfig, sessionConfig}
+module.exports = {dbConfig, sessionConfig, cookieConfig}

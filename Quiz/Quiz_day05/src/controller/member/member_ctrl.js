@@ -1,18 +1,20 @@
 const service = require("../../service/member/member_service")
+const cookieConfig = require("../../../config/member/member_config").cookieConfig;
 
 const login = (req, res) => {
-    req.session.uId = req.body.id
-    req.session.uPwd = req.body.pwd
-    const sessionValue = {uId: req.session.uId, uPwd: req.session.uPwd}
-    res.render("member/login", {sessionValue})
+
+    const isLogin = req.cookies.isLogin;
+    res.render("member/login", {isLogin})
 }
 
 const login_check = async (req, res) => {
     req.session.uId = req.body.id
     req.session.uPwd = req.body.pwd
-
-    console.log("session Id", req.session.uId )
-    console.log("session pwd", req.session.uPwd )
+    const sessionValue = {uId: req.session.uId, uPwd: req.session.uPwd}
+    if(req.body.id) {
+        res.cookie("isLogin", sessionValue, cookieConfig)
+    }
+    const isLogin = req.cookies.isLogin;
 
     const msg = await service.loginChk(req.session.uId, req.session.uPwd);
 
@@ -20,7 +22,55 @@ const login_check = async (req, res) => {
 }
 const logout = (req, res) => {
     req.session.destroy();
+    res.cookie('isLogin','',{maxAge:0}); //쿠키 값 삭제
     res.send(service.getMessage("로그아웃 합니다", "/"))
 }
+const memberList = async (req, res) => {
+    const member = await service.getAllMember();
+    console.log(member)
+    const isLogin = req.cookies.isLogin;
 
-module.exports = {login, login_check, logout}
+    res.render("member/list", {member, isLogin})
+}
+const registerForm = (req, res) => {
+    const isLogin = req.cookies.isLogin;
+    res.render("member/register_form", {isLogin})
+
+}
+const register = (req, res) => {
+    const value = {
+        ID : req.body.regid,
+        PWD : req.body.regpwd,
+        NAME : req.body.name,
+        ADDR : req.body.addr
+    }
+    const insert = service.insert(value);
+    res.send(insert)
+}
+const info = async (req, res) => {
+    const uId = req.params.id
+    let member = await service.memberInfo(uId);
+    const isLogin = req.cookies.isLogin
+    res.render("member/info", {isLogin, member})
+}
+const modifyForm = async (req, res) => {
+    const uId = req.params.id
+    let member = await service.memberInfo(uId)
+    const isLogin = req.cookies.isLogin
+    res.render("member/modify_form", {isLogin, member})
+}
+const modify = async (req, res) => {
+    const value = {
+        ID : req.body.id,
+        PWD : req.body.pwd,
+        NAME : req.body.name,
+        ADDR : req.body.addr
+    }
+    const result = service.modifyMember(value)
+    res.send(result)
+}
+const deleteM = async (req, res) => {
+
+}
+
+module.exports = {login, login_check, logout, memberList, register, registerForm, info, modifyForm, deleteM, modify}

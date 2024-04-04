@@ -5,8 +5,8 @@ module.exports = (app) => {
     const router = require("express").Router();
 
     router.get("/", (req, res) => {
-        const sessionValue = {uId: req.session.uId, uPwd: req.session.uPwd}
-        res.render("index", {sessionValue})
+        const isLogin = req.cookies.isLogin;
+        res.render("index", {isLogin})
     })
     return router;
 }
