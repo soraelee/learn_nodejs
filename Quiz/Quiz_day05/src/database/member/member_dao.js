@@ -24,15 +24,26 @@ const searchMember = async (uId) => {
 }
 const modifyMember = async (value) => {
     let con = await oracledb.getConnection(dbConfig);
-    let sql = `update members set name = '${value.name}', pwd = '${value.pwd}', addr = '${value.addr}' where id='${value.id}'`
+    let sql = `update members set name = '${value.NAME}', pwd = '${value.PWD}', addr = '${value.ADDR}' where id='${value.ID}'`
     let result = 0;
     try{
         result = await con.execute(sql);
     } catch(err){
         console.log(err)
     }
-    console.log(result)
-    return result;
+
+    return result.rowsAffected;
+}
+const deleteMember = async(uId) => {
+    let con = await oracledb.getConnection(dbConfig)
+    let sql = `delete from members where id='${uId}'`
+    let result = 0;
+    try{
+        result = await con.execute(sql)
+    } catch (err) {
+        console.log(err)
+    }
+    return result
 }
 
-module.exports = {getAllMember, insert, searchMember, modifyMember}
+module.exports = {getAllMember, insert, searchMember, modifyMember, deleteMember}

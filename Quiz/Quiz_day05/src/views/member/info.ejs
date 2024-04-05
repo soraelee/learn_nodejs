@@ -7,5 +7,5 @@ name : <%= member[0].NAME %><br>
 address : <%= member[0].ADDR %><br>
 
 <a href="/member/modify_form/<%= member[0].ID %>">수정</a>
-<a href="/member/delete">삭제</a>
+<a href="/member/delete/<%= member[0].ID %>">삭제</a>
 <a href="/member/list">목록으로 이동</a>

@@ -66,11 +66,21 @@ const modify = async (req, res) => {
         NAME : req.body.name,
         ADDR : req.body.addr
     }
-    const result = service.modifyMember(value)
+    const result = await service.modifyMember(value)
     res.send(result)
 }
 const deleteM = async (req, res) => {
-
+    const uId = req.params.id
+    // let member = await service.memberInfo(uId);
+    
+    // const value = {
+    //     ID : member[0].ID,
+    //     PWD : member[0].PWD,
+    //     NAME : member[0].NAME,
+    //     ADDR : member[0].ADDR
+    // }
+    const result = await service.deleteMember(uId)
+    res.send(result)
 }
 
 module.exports = {login, login_check, logout, memberList, register, registerForm, info, modifyForm, deleteM, modify}

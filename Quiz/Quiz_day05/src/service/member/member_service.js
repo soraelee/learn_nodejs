@@ -64,15 +64,28 @@ const memberInfo = async (uId) => {
 const modifyMember = async (value) => {
     const result = await memberDAO.modifyMember(value)
     let msg="", url=""
-    if (result === 0) {
+    if (result == 0) {
         msg = "문제 발생"
-        url = `/member/modify_form/${value.id}`
+        url = `/member/modify_form/${value.ID}`
     }else {
         msg = "수정이 완료되었습니다."
-        url = `/member/info/${value.id}`
+        url = `/member/info/${value.ID}`
     }
 
     return getMessage(msg, url);
 }
+const deleteMember = async (uId) => {
+    const result = await memberDAO.deleteMember(uId)
+    let msg = '', url=''
+    if(result == 0) {
+        msg = "문제 발생"
+        url = `/member/info/${uId}`
+    } else {
+        msg = "삭제 되었습니다"
+        url = `/member/list`
+    }
 
-module.exports = {getAllMember, loginChk, getMessage, insert, memberInfo, modifyMember}
+    return getMessage(msg, url)
+}
+
+module.exports = {getAllMember, loginChk, getMessage, insert, memberInfo, modifyMember, deleteMember}
