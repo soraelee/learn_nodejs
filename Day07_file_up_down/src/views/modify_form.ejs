@@ -1,0 +1,13 @@
+<script src="/static/js/image_read.js"></script>
+
+<h3>수정 페이지</h3>
+<form action="/file/modify" method="post"
+                            enctype="multipart/form-data">
+    <input type="hidden" name="originFileName" value="<%=fileName%>">
+    <!--hidden : 화면에 보이지 않도록 함-->
+    <img src="/file/download/<%=fileName%>" id="img" width="100px" height="100px"><br>
+    <input type="file" name="newFileName" onchange="readURL(this)"><br>
+    <!--파일을 새롭게 받아서 파일 다운로드를 할 수 있는 형태로 전달 -->
+    <input type="submit" value="수정">
+    
+</form>
