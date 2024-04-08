@@ -1,0 +1,37 @@
+<link href="/static/css/header.css" rel="stylesheet">
+
+<script>
+    window.onload = () => {
+        console.log("aaa cookie", document.cookie.indexOf("isLogin=true"));
+        let msg = "<li><a href='/'>HOME</li>";
+            msg += "<li><a href='/board/list'>BOARD</a></li>"
+    
+        if(document.cookie.indexOf("isLogin=true") !== -1){ // 값이 없다는 뜻
+            msg += '<li><a href="/member/logout">로그아웃</a></li>'
+            msg += '<li><a href="/member/list">회원정보</a></li>'
+        }else {
+            console.log("cookie", document.cookie)
+            msg += '<li><a href="/member/login">로그인</a></li>'
+            msg += '<li><a href="/member/login">회원정보</a></li>'
+        }
+    
+        document.querySelector("#nav ul").innerHTML = msg
+    }
+</script>
+
+<div class="wrap">
+    <div class="header">
+        <h1 class="title">CARE LAB</h1>
+    </div>
+</div>
+<div class="navdiv">
+    <div class="wrap">
+        <nav id="nav" class="nav">
+            <ul></ul>
+        </nav>
+    </div>
+</div>
+<hr>
+    
+
+

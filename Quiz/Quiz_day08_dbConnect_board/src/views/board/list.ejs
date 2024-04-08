@@ -1,0 +1,26 @@
+<table border="1">
+    <thead>
+        <tr>
+            <th>작성 번호</th><th>작성자</th><th>제목</th><th>날짜</th><th>조회수</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if(list.length === 0) {%>
+           <tr colspan="5">
+                <td>
+                    등록된 글이 없습니다.
+                </td>
+           </tr>
+        <%} else {
+            list.forEach((data) => {%>
+                <tr>
+                    <td>list.WRITE_NO</td>
+                    <td>list.ID</td>
+                    <td>list.TITLE</td>
+                    <td>list.SAVE_DATE</td>
+                    <td>list.HIT</td>
+                </tr>
+           <% }) 
+        }%>
+    </tbody>
+</table>
