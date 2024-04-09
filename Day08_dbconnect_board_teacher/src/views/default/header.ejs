@@ -13,6 +13,18 @@ window.onload = () =>{
         msg += '<li><a href="/member/login">회원정보</a></li>';
     }
     document.querySelector("#nav ul").innerHTML = msg
+
+    console.log("location.href : ", location.href)
+    // /board/data일 경우의 위치를 표현
+    console.log(location.href.indexOf("/board/data"))
+    // 해당위치가 아닐 경우 -1
+    if (location.href.indexOf("/board/data") !== -1) {
+        const num = document.getElementById("number")
+        console.log('num : ', num)
+        console.log('num.innerHTML : ', num.innerHTML)
+        console.log('num.innerText : ', num.innerText)
+        init(num.innerText)
+    } //에러 발생
 }
 </script>
 <div class="wrap">

@@ -17,6 +17,7 @@ const getMessage = (msg, url) => {
 const timeModify = (list) => {
     //모든 게시물 리스트를 받아 모든 게시물의 날짜 부분을 변경
     list = list.map((data) => {
+        //map : 배열 형식일 때만 사용
         data.SAVE_DATE = data.SAVE_DATE.toLocaleString();
         return data;
     })

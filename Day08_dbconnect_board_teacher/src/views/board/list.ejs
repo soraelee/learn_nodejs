@@ -13,7 +13,13 @@
             list.forEach(data=>{%>
             <tr>
                 <td><%=data.WRITE_NO%></td><td><%=data.ID%></td>
-                <td><%=data.TITLE%></td><td><%=data.SAVE_DATE%></td>
+                <td>
+                    <a href="/board/data/<%=data.WRITE_NO%>">
+                        <%=data.TITLE%>
+                    </a>
+                </td>
+                
+                <td><%=data.SAVE_DATE%></td>
                 <td><%=data.HIT%></td><td><%=data.ORIGIN_FILE_NAME%></td>
                 <td><%=data.CHANGE_FILE_NAME%></td>
             </tr>
@@ -21,6 +27,19 @@
         }%>
         <tr>
             <td colspan="7" align="right">
+                <% if( start <= 1){ %>
+                    <button disabled>이전</button>
+                <%}else{%>
+                    <button type="button" onclick="
+                        location.href='/board/list?start=<%=start - 1%>'">이전</button>
+                <% }for(let i=1 ; i <= totalPage ; i++ ){ %>
+                    <a href="/board/list?start=<%= i %>"><%= i %></a>
+                <% }if( start < totalPage ){%>
+                    <button type="button" onclick="
+                        location.href='/board/list?start=<%=start + 1%>'">다음</button>
+                <% }else{ %> <button disabled>다음</button> <% } %>
+                <%= start %> / <%= totalPage %>            
+
                 <a href="/board/write_form">글 작성</a>
             </td>
         </tr>

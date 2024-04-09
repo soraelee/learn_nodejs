@@ -6,6 +6,7 @@ app.use("/static", express.static("./public"))
 
 const bodyParser = require("body-parser");
 app.use( bodyParser.urlencoded() );
+app.use( bodyParser.json() ); //json 값으로 넘어오는 것도 받을 수 있음
 
 
 const session = require("express-session");

@@ -4,6 +4,10 @@ module.exports = (app)=>{
 
     const boardRouter = require("./board/board_router")
     app.use("/board", boardRouter);
+
+    const boardReplyRouter = require("./board/board_reply_router")
+    app.use("/boardrep", boardReplyRouter);
+
     const router = require("express").Router();
     
     router.get("/", (req, res)=>{
