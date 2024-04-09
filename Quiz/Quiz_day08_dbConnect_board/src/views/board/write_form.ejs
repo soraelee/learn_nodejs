@@ -1,0 +1,21 @@
+<%- include("../default/header") %>
+<script src="/static/js/image_read"></script>
+<div class="content wrap">
+    <div style="width: 400px; margin: 0 auto; ">
+        <h1 style="text-align: center;">글쓰기</h1>
+        <form>
+            <b>작성자</b> <br>
+            <input type="text" readonly value="<%= username %>"> <hr>
+            <b>제목</b> <br><input type="text" name="title"><br>
+            <hr>
+            <b>내용</b> <br>
+            <textarea cols="30" rows="30"></textarea>
+            <hr>
+            <b>이미지파일 첨부</b>
+            <input type="file" name="image_file_name" onchange="readURL(this)">
+            <img src="#" ><br>
+            
+        
+        </form>
+    </div>
+</div>

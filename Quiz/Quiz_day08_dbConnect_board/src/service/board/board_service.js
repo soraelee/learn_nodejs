@@ -1,10 +1,11 @@
 const dao = require("../../database/board/board_dao")
+const common = require("../ser_common")
 
 const boardRead = {
     list : async () => {
         const list = await dao.boardRead.list();
-        console.log("list : ", list)
-        return list.rows
+        data = common.timeModify(list.rows)
+        return data
     }
 }
 
